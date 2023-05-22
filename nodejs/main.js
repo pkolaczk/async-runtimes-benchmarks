@@ -6,11 +6,7 @@ async function runTasks(numTasks) {
   const tasks = [];
 
   for (let i = 0; i < numTasks; i++) {
-    tasks.push(
-      (async () => {
-        await delay(10000);
-      })()
-    );
+    tasks.push(delay(10000));
   }
 
   await Promise.all(tasks);
