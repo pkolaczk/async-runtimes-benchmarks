@@ -9,7 +9,7 @@ async def main(num_tasks):
     tasks = []
 
     for task_id in range(num_tasks):
-        task = asyncio.create_task(await asyncio.sleep(10))
+        task = asyncio.create_task(perform_task())
         tasks.append(task)
 
     await asyncio.gather(*tasks)
