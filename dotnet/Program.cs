@@ -14,12 +14,7 @@ class Program
 
         for (int i = 0; i < numTasks; i++)
         {
-            Task task = Task.Run(async () =>
-            {
-                await Task.Delay(TimeSpan.FromSeconds(10));
-            });
-
-            tasks.Add(task);
+            tasks.add(Task.Delay(TimeSpan.FromSeconds(10)));
         }
 
         await Task.WhenAll(tasks);
