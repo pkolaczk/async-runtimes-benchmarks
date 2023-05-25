@@ -1,0 +1,28 @@
+cabal-version: 1.12
+
+name: coroutines
+version: 0.0.0
+build-type: Simple
+
+executable coroutines
+  main-is: Main.hs
+  default-extensions:
+    OverloadedStrings
+    LambdaCase
+    QuasiQuotes
+    MultiWayIf
+    TemplateHaskell
+    DataKinds
+    ImplicitParams
+    PartialTypeSignatures
+    DeriveAnyClass
+    OverloadedRecordDot
+    ForeignFunctionInterface
+    BlockArguments
+    DuplicateRecordFields
+    ImportQualifiedPost
+    DeriveGeneric
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+    base, async, safe
+  default-language: GHC2021
