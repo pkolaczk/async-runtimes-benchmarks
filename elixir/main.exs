@@ -18,7 +18,7 @@ defmodule Main do
       end
     end
 
-    IO.puts("All tasks completed")
+    IO.puts("All processes completed")
   end
 end
 
