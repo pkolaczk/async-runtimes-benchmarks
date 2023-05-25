@@ -7,12 +7,17 @@ defmodule Main do
 
     tasks =
       for _ <- 1..num_tasks do
-        Task.async(fn ->
+        spawn_monitor(fn ->
           :timer.sleep(10000)
         end)
       end
 
-    Task.await_many(tasks, :infinity)
+    for {_pid, ref} <- tasks do
+      receive do
+        {:DOWN, ^ref, _, _, _} -> :ok
+      end
+    end
+
     IO.puts("All tasks completed")
   end
 end
