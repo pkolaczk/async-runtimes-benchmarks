@@ -1,29 +1,26 @@
 using System;
-using System.Collections.Generic;
-using System.Threading;
+using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using System.Threading.Tasks;
 
-class Program
+[assembly: SuppressMessage("Roslyn", "IDE0130", Justification = "This is a benchmark, we don't need to follow the usual naming conventions.")]
+namespace AsyncRuntimeBenchmarks
 {
-    static async Task Main(string[] args)
+    public sealed class Program
     {
-        int numTasks = args.Length > 0 ? int.Parse(args[0]) : 100000;
-	Console.WriteLine($"Starting {numTasks} tasks");
-
-        List<Task> tasks = new List<Task>();
-
-        for (int i = 0; i < numTasks; i++)
+        public static async Task Main(string[] args)
         {
-            Task task = Task.Run(async () =>
+            int numTasks = args.Length > 0 ? int.Parse(args[0], NumberStyles.Number, CultureInfo.InvariantCulture) : 100000;
+            Console.WriteLine($"Starting {numTasks} tasks");
+
+            Task[] tasks = new Task[numTasks];
+            for (int i = 0; i < numTasks; i++)
             {
-                await Task.Delay(TimeSpan.FromSeconds(10));
-            });
+                tasks[i] = Task.Delay(TimeSpan.FromSeconds(10));
+            }
+            await Task.WhenAll(tasks);
 
-            tasks.Add(task);
+            Console.WriteLine("All tasks complete");
         }
-
-        await Task.WhenAll(tasks);
-
-        Console.WriteLine("All tasks complete");
     }
 }
