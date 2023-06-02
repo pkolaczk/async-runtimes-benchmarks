@@ -6,9 +6,8 @@ end
 
 function main()
     # Check if the number of tasks is provided as a command line argument
-    if length(ARGS) < 1
+    if length(ARGS) < 1 
         println("Usage: julia concurrent_tasks.jl <num_tasks>")
-        return
     end
 
     # Get the number of tasks from the command line argument
@@ -19,7 +18,7 @@ function main()
     @threads :dynamic for i in 1:num_tasks
         tasks[i] = @spawn task_function()
     end
-
+    wait.(tasks)
     println("All tasks have finished.")
 end
 

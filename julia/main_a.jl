@@ -6,7 +6,6 @@ function main()
     # Check if the number of tasks is provided as a command line argument
     if length(ARGS) < 1
         println("Usage: julia concurrent_tasks.jl <num_tasks>")
-        return
     end
 
     # Get the number of tasks from the command line argument
@@ -19,9 +18,7 @@ function main()
     end
 
     # Wait for all tasks to finish
-    for task in tasks
-        wait(task)
-    end
+   wait.(tasks)
 
     println("All tasks have finished.")
 end
